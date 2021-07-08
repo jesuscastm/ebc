@@ -16,6 +16,7 @@ class VentasApplicationTests {
 
 	@Autowired UserRepository repository;
 	private User user;
+	private User userDeleted;
 
 	@BeforeEach
 	void setUp() {
@@ -23,6 +24,11 @@ class VentasApplicationTests {
 		user = new User();
 		user.setUsername("foobar");
 		user.setPassword("123456");
+
+		userDeleted = new User();
+		userDeleted.setUsername("lencho");
+		userDeleted.setPassword("12345678");
+		userDeleted.setDeleted(Boolean.TRUE);
 	}
 
 	@Test
@@ -34,11 +40,17 @@ class VentasApplicationTests {
 	}
 
 	@Test
-	void findSavedUserByLastnam() {
+	void findSavedUserByLastnameAndPassword() {
 
 		user = repository.save(user);
 		
 		assertThat(repository.findByUsernameAndPassword("foobar", "123456")).isSameAs(user);
+	}
+
+	void findSavedUserByLastnameAndPasswordAndNotDeleted() {
+		userDeleted = repository.save(userDeleted);
+
+		assertThat(repository.findByUsernameAndPasswordAndNotDeleted("lencho", "12345678")).isNull();
 	}
 
 }
