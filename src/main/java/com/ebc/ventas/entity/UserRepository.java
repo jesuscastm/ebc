@@ -6,5 +6,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     public User findByUsernameAndPassword(String username, String password);
 
-    public User findByUsernameAndPasswordAndNotDeleted(String username, String password);
+    public User findByUsernameAndPasswordAndDeleted(String username, String password, Boolean deleted);
 }

@@ -16,6 +16,7 @@ class VentasApplicationTests {
 
 	@Autowired UserRepository repository;
 	private User user;
+	private User userFound;
 	private User userDeleted;
 
 	@BeforeEach
@@ -24,6 +25,12 @@ class VentasApplicationTests {
 		user = new User();
 		user.setUsername("foobar");
 		user.setPassword("123456");
+		user.setDeleted(Boolean.FALSE);
+
+		userFound = new User();
+		userFound.setUsername("foo");
+		userFound.setPassword("123456");
+		userFound.setDeleted(Boolean.FALSE);
 
 		userDeleted = new User();
 		userDeleted.setUsername("lencho");
@@ -36,21 +43,21 @@ class VentasApplicationTests {
 
 		user = repository.save(user);
 
-		assertThat(repository.findById(user.getId())).hasValue(user);
+		assertThat(repository.findById(user.getId())).contains(user);
 	}
 
 	@Test
 	void findSavedUserByLastnameAndPassword() {
-
-		user = repository.save(user);
+		userFound = repository.save(userFound);
 		
-		assertThat(repository.findByUsernameAndPassword("foobar", "123456")).isSameAs(user);
+		assertThat(repository.findByUsernameAndPassword("foo", "123456")).isEqualTo(user);
 	}
 
+	@Test
 	void findSavedUserByLastnameAndPasswordAndNotDeleted() {
 		userDeleted = repository.save(userDeleted);
 
-		assertThat(repository.findByUsernameAndPasswordAndNotDeleted("lencho", "12345678")).isNull();
+		assertThat(repository.findByUsernameAndPasswordAndDeleted("lencho", "12345678", Boolean.FALSE)).isNull();
 	}
 
 }

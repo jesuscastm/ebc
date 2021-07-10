@@ -23,12 +23,12 @@ public class VentasApplication {
 	@Bean
 	public CommandLineRunner demo(UserRepository repository) {
 		return (args) -> {
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
-			repository.save( new User("Julio", "j", "test", 1, Boolean.FALSE));
+			repository.save( new User("Julio1", "j1", "test", 123456, Boolean.FALSE));
+			repository.save( new User("Julio2", "j2", "test", 123456, Boolean.FALSE));
+			repository.save( new User("Julio3", "j3", "test", 123456, Boolean.FALSE));
+			repository.save( new User("Julio4", "j4", "test", 123456, Boolean.TRUE));
+			repository.save( new User("Julio5", "j5", "test", 123456, Boolean.FALSE));
+			repository.save( new User("Julio6", "j6", "test", 123456, Boolean.FALSE));
 		};
 	}
 	
